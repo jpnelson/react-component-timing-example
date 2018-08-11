@@ -1,10 +1,9 @@
 import * as React from "react";
 import "./app.css";
 
+import { ComponentTimingRoot } from "react-component-timing";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
-// import { ComponentTimingRoot } from "../../src";
 
-import { ComponentTimingRoot } from "./react-component-timing-dist";
 window.console.log(ComponentTimingRoot);
 
 const Example = () => <span>1</span>;
