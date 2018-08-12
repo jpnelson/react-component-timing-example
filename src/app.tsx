@@ -2,39 +2,29 @@ import * as React from "react";
 import "./app.css";
 
 import { ComponentTimingRoot } from "react-component-timing";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
-
-window.console.log(ComponentTimingRoot);
-
-const Example = () => <span>1</span>;
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { CurrencyPage } from "./currency-page";
+import { Navigation } from "./navigation";
 
 export class App extends React.Component {
   public render() {
     return (
       <div>
-        {/* <ComponentTimingRoot reporter={window.console.log}> */}
-        <Router>
-          <div>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-              <li>
-                <Link to="/topics">Topics</Link>
-              </li>
-            </ul>
+        <ComponentTimingRoot reporter={window.console.log}>
+          <Router>
+            <div>
+              <Navigation />
 
-            <hr />
+              <hr />
 
-            <Route exact={true} path="/" component={Example} />
-            <Route exact={true} path="/about" component={Example} />
-            <Route exact={true} path="/topics" component={Example} />
-          </div>
-        </Router>
-        {/* </ComponentTimingRoot> */}
+              <Route
+                exact={true}
+                path="/currency/:currency"
+                component={CurrencyPage}
+              />
+            </div>
+          </Router>
+        </ComponentTimingRoot>
       </div>
     );
   }

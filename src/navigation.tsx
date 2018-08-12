@@ -1,0 +1,25 @@
+import * as React from "react";
+import { Link } from "react-router-dom";
+import { CurrencyProvider, ICurrencyData } from "./providers/currency-provider";
+
+export class Navigation extends React.Component {
+  public render() {
+    return <CurrencyProvider render={this.getNavigation} />;
+  }
+  private getNavigation({ isLoading, data }: ICurrencyData) {
+    if (isLoading) {
+      return <span>Loading</span>;
+    }
+    const navigationCurrencies = data.filter((_, i) => i < 20);
+
+    return (
+      <ul>
+        {navigationCurrencies.map(currency => (
+          <li key={currency.id}>
+            <Link to={`/currency/${currency.id}`}>{currency.name}</Link>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+}
