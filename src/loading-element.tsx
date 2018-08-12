@@ -1,15 +1,18 @@
 import * as React from "react";
 import { ComponentTiming } from "react-component-timing";
 
+type OnLoad = () => void;
+
 interface IOwnProps {
-  currency: string;
+  id: string;
+  render: (onLoad: OnLoad) => JSX.Element;
 }
 
 interface IOwnState {
   isLoaded: boolean;
 }
 
-export class TradingviewWidget extends React.Component<IOwnProps, IOwnState> {
+export class LoadingElement extends React.Component<IOwnProps, IOwnState> {
   public state = {
     isLoaded: false
   };
@@ -28,21 +31,13 @@ export class TradingviewWidget extends React.Component<IOwnProps, IOwnState> {
 
   public render() {
     return (
-      <ComponentTiming
-        id="tradingview-widget"
-        isSelfLoaded={this.state.isLoaded}
-      >
-        <iframe
-          height="720"
-          src="https://www.myforexwidgets.com/allwidgets/currency-converter/?color=blue"
-          width="100%"
-          onLoad={this.setLoaded}
-        />
+      <ComponentTiming id={this.props.id} isSelfLoaded={this.state.isLoaded}>
+        {this.props.render(this.onLoad)}
       </ComponentTiming>
     );
   }
 
-  private setLoaded = () => {
+  private onLoad = () => {
     this.setState({
       isLoaded: true
     });
